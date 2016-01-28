@@ -1,6 +1,5 @@
 import numpy as np
-import sys; sys.path.insert(0, '../')
-from coroutines import *
+from pypipe.decorator import *
 
 def test_feeder():
 

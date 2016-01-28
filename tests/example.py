@@ -1,7 +1,6 @@
 import numpy as np
-from time_me import time_me
-import sys; sys.path.insert(0, '../')
-from coroutines import *
+from pypipe.decorator import *
+from utils.time_me import time_me
 
 # a factory generate a filter of some type: feeder, worker or sinker
 #
@@ -34,7 +33,7 @@ def feed_ones(sz):
     return np.ones(sz)
 
 def main():
-    rep_num = 1
+    rep_num = 5
     sizes = [ 10 ]
 
     # generate coroutines from the coroutine factories
@@ -62,7 +61,6 @@ def main():
     def _run():
         for fd in feeders:
             buf = fd(p)
-            print buf
 
     _run()
 
