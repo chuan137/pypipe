@@ -1,5 +1,6 @@
 import traceback as tb
 import numpy as np
+import time
 
 def feeder_fac(func):
     def wrapper(iterable):
@@ -7,13 +8,14 @@ def feeder_fac(func):
         def feeder(target):
             target.send(None)
             try:
+                start = time.time()
                 while 1:
                     n = iterable.next()
-                    # allocate memory for buffer 
                     _buffer = func(n)
                     target.send(_buffer)
             except StopIteration:
-                print 'Feeder: done'
+                runtime = time.time() - start
+                print 'Feeder: done (%0.3f ms)' % (1000 *(runtime))
             return _buffer
         return feeder
     return wrapper
